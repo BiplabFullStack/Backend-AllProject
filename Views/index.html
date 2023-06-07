@@ -1,36 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointment App</title>
-</head>
-<body>
-    <h1>Appointment App</h1>
-    <form action="/users/createUser" method="post">
-        <div>
-            <label for="name">Name*</label>
-        <input type="text" id="name" name="name">
-        </div><br>
-        <div>
-            <label for="phon">Phone*</label>
-        <input type="number" id="phon" name="phon">
-        </div><br>
-        <div>
-            <label for="email">Email</label>
-        <input type="text" id="email" name="email">
-        </div><br>
-        <div>
-           
-        <button type="submit" >Submit</button>
-        </div>
-        
 
-    </form>
-    <ul id="listOnScreen"></ul>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</body> -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -83,35 +51,13 @@
        
     <button type="submit" >Submit</button>
     </div>
-    
-
 </form>
-  <!-- <form action="/users/createUser" id="myForm" method="post">
-      <div class="mb-3">
-        <label for="name" class="form-label">Name*</label>
-        <input type="text" class="form-control" placeholder="Your Name" id="name" name="name">
-      </div>
-      <div class="mb-3">
-        <label for="phone" class="form-label">Phone Number*</label>
-        <input type="number" class="form-control" placeholder="xxxxxxxxxx" id="phon" name="phone">
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email ID*</label>
-        <input type="text" class="form-control" placeholder="name@example.com" id="email">
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
 
-  </form> -->
-  
   <ul class="list-group list-group-numbered" id="listOnScreen"></ul>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"></script>
+  
 </body>
-
-
-
-
-
-<script>
+ <script>
 
 function onsignup(event) {
     event.preventDefault();
@@ -175,36 +121,23 @@ function onScreenFunction(myObj) {
     const editBtn = document.createElement('input');
     editBtn.value = 'Edit';
     editBtn.type = 'button';
+    editBtn.onclick = () => {
 
+     document.getElementById('name').value = myObj.name;
+     document.getElementById('phon').value= myObj.phone;
+     document.getElementById('email').value= myObj.email;
 
+      let element=axios.delete(`http://localhost:3000/deletedata/${myObj.id}`)
+      axios.delete(element)
+      //localStorage.removeItem(details.name);
+      ul.removeChild(li);
+  } 
     li.appendChild(delBtn);
     li.appendChild(editBtn);
     ul.appendChild(li);
     
-}
+} 
 
-/* const deleteUser = await axios.get('http://localhost:3000/deleteUser', {
-    params: {
-      id : id
-    }
-  });
 
-function deleteUser(userId){
-    axios.delete('http://localhost:3000/user/delete-user/${userId}')
-    .then((response)=> {
-        removeUserFromScreen(userId)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
-}
-
-function removeUserFromScreen(userId){
-    const parentNode =document.getElementById('listOnScreen');
-    const childNode = document.getElementById(userId);
-    if(childNode){
-        parentNode.removeChild(childNode)
-    }
-} */
 </script>
 </html>
