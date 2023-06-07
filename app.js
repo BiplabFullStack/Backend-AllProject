@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const userRoute = require('./routes/userRoute')
 const sequelize = require('./data/database')
+const hostName ='localhost';
+const PORT =3000;
 
 app.use(bodyParser.urlencoded({extended:false}));
 
@@ -17,8 +19,8 @@ app.post('/users', userRoute);
 
 sequelize.sync()
 .then(() => {
-    app.listen('3000', () => {
-        console.log("listening on post 3000");
+    app.listen(PORT, () => {
+        console.log(`Server Running at http://${hostName}:${PORT}`);
     })
 })
 .catch(err => {

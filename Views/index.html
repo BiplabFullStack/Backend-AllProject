@@ -49,11 +49,11 @@
     </div><br>
     <div>
        
-    <button type="submit" >Submit</button>
+    <button type="submit" class="bg-success">Submit</button>
     </div>
 </form>
 
-  <ul class="list-group list-group-numbered" id="listOnScreen"></ul>
+  <ul class="list-group list-group-numbered text-info" id="listOnScreen"></ul>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"></script>
   
 </body>
@@ -105,32 +105,43 @@ function onScreenFunction(myObj) {
 
 
     const li = document.createElement('li');
-    li.innerHTML = `${myObj.name} - ${myObj.phone} - ${myObj.email}-${myObj.id}`;
+    li.innerHTML = `${myObj.name} - ${myObj.phone} - ${myObj.email}`;
 
     const delBtn = document.createElement('input');
     delBtn.value = 'Delete';
     delBtn.type = 'button';
+    delBtn.style.backgroundColor ='red'
    
-     delBtn.onclick = () => {
-        let element=axios.delete(`http://localhost:3000/deletedata/${myObj.id}`)
-        axios.delete(element)
-        //localStorage.removeItem(details.name);
-        ul.removeChild(li);
+     delBtn.onclick = async() => {
+      try{
+      await axios.delete(`http://localhost:3000/deletedata/${myObj.id}`)
+      ul.removeChild(li);
+
+      }
+      catch(err){
+        console.log(err)
+      }
     } 
     
     const editBtn = document.createElement('input');
     editBtn.value = 'Edit';
     editBtn.type = 'button';
-    editBtn.onclick = () => {
-
-     document.getElementById('name').value = myObj.name;
+    editBtn.style.backgroundColor ='yellow'
+    editBtn.onclick = async() => {
+      try{
+        document.getElementById('name').value = myObj.name;
      document.getElementById('phon').value= myObj.phone;
      document.getElementById('email').value= myObj.email;
 
-      let element=axios.delete(`http://localhost:3000/deletedata/${myObj.id}`)
-      axios.delete(element)
-      //localStorage.removeItem(details.name);
+      await axios.delete(`http://localhost:3000/deletedata/${myObj.id}`)
+  
       ul.removeChild(li);
+      }
+      catch(err){
+        console.log(err)
+      }
+
+     
   } 
     li.appendChild(delBtn);
     li.appendChild(editBtn);
